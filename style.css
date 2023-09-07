@@ -1,0 +1,29 @@
+body{
+    background-color: grey;
+    color: rgb(235, 63, 63);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+h1{
+    -webkit-text-stroke: 2px black;
+}
+p{
+    background-color: black;
+    display: inline-block;
+}
+button{
+    height: 50px;
+}
+#accelBar{
+    background-color: black;
+    position: relative;
+    padding: 10px;
+    width: 400px;
+    
+}
+#accelBarInside{
+    background-color: rgb(235, 63, 63);
+    padding: 10px;
+    width: 1%;
+
+}
