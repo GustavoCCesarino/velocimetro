@@ -14,17 +14,17 @@ p{
 button{
     height: 50px;
 }
-#accelBar{
+#rpmBarBackground{
     background-color: black;
     position: relative;
     padding: 10px;
     width: 400px;
     
 }
-#accelBarInside{
+#rpmBar{
     background-color: rgb(235, 63, 63);
     padding: 10px;
-    transition: 0.2s;
+    /*transition: 0.2s;*/
     width: 1px;
 
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

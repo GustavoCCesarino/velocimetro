@@ -1,48 +1,45 @@
-let btAccel = document.getElementById('btAccel')
-//btAccel.addEventListener('click', acceleration)
+let rpmValue = 0;
 
-let element = document.querySelector('#accelBarInside')
-let style = getComputedStyle(element); // mudar o nome dessas variaveis
+let btAccel = document.getElementById('btAccel');
 
-document.addEventListener("DOMContentLoaded", function (){
-    function forceDepletion(){
-        let largura = element.style.width;
-        let larguraAsInt = parseInt(largura, 10);
-        if (larguraAsInt - 10 >= 1)
-        {
-            let decrementLargura = larguraAsInt - 10;
-            element.style.width = decrementLargura + "px";
-            
-        }else{
-            larguraAsInt = 1;
-        }
-        console.log("Largura: "+larguraAsInt+"px");
-        setTimeout(forceDepletion, 50);
-    }
-    forceDepletion();
-});
 
-//btAccel.addEventListener('click', acceleration);
-let intervalId;
+btAccel.addEventListener('mousedown',mouseDown);
+btAccel.addEventListener('mouseup', mouseUp);
 
-btAccel.addEventListener('mousedown', function () {
-    clearInterval(intervalId);
-    intervalId = setInterval(acceleration, 50);
-    console.log(intervalId);
-});
+let mouseDownID = 0;
+let mouseUpID = 0;
 
-btAccel.addEventListener('mouseup', function () {
-    clearInterval(intervalId);
-    console.log("Interval cleared!");
-});
-
-function acceleration(){
-    let largura = style.width;
-    let larguraAsInt = parseInt(largura, 10);
-    let incrementedLargura = larguraAsInt + 40;
-    //alert(incrementedLargura);
-    //console.log("largura"+incrementedLargura);
-    element.style.width = incrementedLargura + "px";
+function mouseDown(){
+    clearInterval(mouseUpID);
+    mouseDownID = setInterval(accelerate, 50);
+    btAccel.removeEventListener('mousedown',mouseDown);
+    document.addEventListener('mouseup', mouseUp);
 }
 
+function mouseUp(){
+    clearInterval(mouseDownID);
+    mouseUpID = setInterval(slowDown, 50);
+    document.removeEventListener('mouseup',mouseUp);
+    btAccel.addEventListener('mousedown', mouseDown);
+    
+}
 
+function accelerate(){
+    rpmValue = rpmValue + 1;
+    console.log("Accelerating: ", rpmValue);
+    updateBar();
+}
+
+function slowDown(){
+    if(rpmValue <= 0){
+        clearInterval(mouseUpID);
+    }else{
+        rpmValue = rpmValue - 1;
+        console.log("Slowing down: ", rpmValue); 
+        updateBar();
+    }
+}
+
+function updateBar(){
+    document.getElementById('rpmBar').style.width = rpmValue + "px";
+}
